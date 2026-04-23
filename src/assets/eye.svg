@@ -5,7 +5,7 @@
     C 100 110 100 110 10 50 Z"
     fill="red"
     stroke="black"
-    stroke-width="10"
+    strokeWidth="10"
     />
     <circle cx="100" cy="50" r="50" />
     <circle cx="100" cy="50" r="40" fill="white" />
