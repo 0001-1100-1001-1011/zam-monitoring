@@ -1,0 +1,20 @@
+const Eye = () => {
+  return (
+    <svg viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg">
+      <path
+        d="M 10 50 
+        C 100 -10 100 -10 190 50
+        C 100 110 100 110 10 50 Z"
+        fill="red"
+        stroke="black"
+        strokeWidth="10"
+      />
+      <circle cx="100" cy="50" r="50" />
+      <circle cx="100" cy="50" r="40" fill="white" />
+      <circle cx="100" cy="50" r="20" />
+      <circle cx="90" cy="40" r="8" fill="white" />
+    </svg>
+  );
+};
+
+export default Eye;
