@@ -1,5 +1,8 @@
 import { Navigate, Route, Routes } from "react-router";
 import Login from "./pages/Login.jsx";
+import Users from "./pages/Users.jsx";
+import Hosts from "./pages/Hosts.jsx";
+
 
 function App() {
   return (
@@ -7,9 +10,12 @@ function App() {
       <Routes>
         <Route path="*" element={<Navigate to="/login" replace />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/users" element={<Users />} />
+        <Route path="/hosts" element={<Hosts />} />
       </Routes>
     </>
   );
 }
+
 
 export default App;
