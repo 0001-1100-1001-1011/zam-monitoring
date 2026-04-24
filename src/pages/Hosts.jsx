@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import HostTable from "../components/HostTable.jsx";
-import Header from "../components/Header-BacktoDash.jsx";
+import Header from "../components/Header.jsx";
+import Sidebar from "../components/Sidebar.jsx";
 
 export default function Hosts() {
   const [hosts, setHosts] = useState([]);
@@ -12,31 +13,33 @@ export default function Hosts() {
         Hostname: "SRV-1",
         role: "Server",
         status: "online",
-        lastLogin: "2026-04-23",
-        time: "18:22",
+        lastOnline: "2026-04-23",
+        cpu: "18%",
       },
       {
         id: 2,
         Hostname: "SRV-2",
         role: "Server",
         status: "offline",
-        lastLogin: "2026-04-22",
-        time: "09:14",
+        lastOnline: "2026-04-22",
+        cpu: "0%",
       },
       {
         id: 3,
         Hostname: "Client-1",
         role: "Client",
         status: "Idle",
-        lastLogin: "2026-04-23",
-        time: "20:01",
+        lastOnline: "2026-04-23",
+        cpu: "5%",
       },
     ];
+
     setHosts(dummy);
   }, []);
 
   return (
     <>
+      <Sidebar />
       <Header />
 
       <div className="min-h-screen bg-[var(--bg)] text-white flex flex-col items-center py-16">

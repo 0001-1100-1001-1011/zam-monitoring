@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import UserTable from "../components/UserTable.jsx";
-import Header from "../components/Header-BacktoDash.jsx";
+import Header from "../components/Header.jsx";
+import Sidebar from "../components/Sidebar.jsx";
 
 export default function Users() {
   const [users, setUsers] = useState([]);
@@ -37,6 +38,7 @@ export default function Users() {
 
   return (
     <>
+     <Sidebar />
       <Header />
 
       <div className="min-h-screen bg-[var(--bg)] text-white flex flex-col items-center py-16">
