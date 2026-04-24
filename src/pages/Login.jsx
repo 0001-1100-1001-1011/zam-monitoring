@@ -1,22 +1,23 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router";
+import { loginAdmin } from "../../services/loginService.js";
 import Header from "../components/Header.jsx";
 import Footer from "../components/Footer.jsx";
 import Button_link_gray from "../components/Button_link_gray.jsx";
 import Button_red from "../components/Button_red";
 import LoginErrorCard from "../components/LoginErrorCard.jsx";
+import { useAuth } from "../state/authContext.jsx";
 import Eye from "../assets/eye.jsx";
-import React from "react";
 
-export default function SingIn() {
-  let setIsAuthenticated = true; // this will have to be changed with a real auth system
-  const [user, setUser] = useState({ username: "", password: "" }); //this is referring to the user loggin in, the admin
+export default function SignIn() {
+  const { setIsAuthenticated } = useAuth();
+  const [admin, setAdmin] = useState({ username: "", password: "" });
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setUser((prevUser) => ({ ...prevUser, [name]: value }));
+    setAdmin((prevAdmin) => ({ ...prevAdmin, [name]: value }));
 
     setErrors((prevErrors) => {
       const newErrors = { ...prevErrors };
@@ -32,14 +33,14 @@ export default function SingIn() {
 
   const validate = () => {
     const errors = {};
-    if (!user.username) {
+    if (!admin.username) {
       errors.username = "Username is required";
-    } else if (user.username.length < 4) {
+    } else if (admin.username.length < 4) {
       errors.username = "Username must be at least 4 characters long";
     }
-    if (!user.password) {
+    if (!admin.password) {
       errors.password = "Password is required";
-    } else if (user.password.length < 8) {
+    } else if (admin.password.length < 8) {
       errors.password = "Password must be at least 8 characters long";
     }
     return errors;
@@ -50,14 +51,11 @@ export default function SingIn() {
     const validationErrors = validate();
     setErrors(validationErrors);
     if (Object.keys(validationErrors).length === 0) {
-      const loginSucess = await login(setIsAuthenticated);
+      const loginSucess = await loginAdmin(admin, setIsAuthenticated);
       if (loginSucess) {
+        console.log("done");
         navigate("/dashboard");
       }
-    }
-
-    function login() {
-      console.log("Login clicked");
     }
   };
 
@@ -89,7 +87,7 @@ export default function SingIn() {
                   minLength="4"
                   placeholder="Enter username"
                   className={`border w-full p-2 rounded-sm focus:outline-none focus:ring-2 focus:ring-white login-input ${
-                    errors.username ? "invalid" : user.username.length >= 4 ? "valid" : ""
+                    errors.username ? "invalid" : admin.username.length >= 4 ? "valid" : ""
                   }`}
                 />
               </div>
@@ -105,7 +103,7 @@ export default function SingIn() {
                   required
                   minLength="8"
                   placeholder="Enter password"
-                  className={`border w-full p-2 rounded-sm focus:outline-none focus:ring-2 focus:ring-white ${errors.password ? "invalid" : user.password.length >= 8 ? "valid" : ""}`}
+                  className={`border w-full p-2 rounded-sm focus:outline-none focus:ring-2 focus:ring-white ${errors.password ? "invalid" : admin.password.length >= 8 ? "valid" : ""}`}
                 />
               </div>
 
