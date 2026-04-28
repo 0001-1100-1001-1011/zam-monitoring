@@ -1,26 +1,63 @@
-export default function UniversalTable({ columns, data }) {
+export default function AllTables({ columns, data }) {
   const renderAutoCell = (key, value) => {
+
+    // -------------------------
+    // STATUS BADGES
+    // -------------------------
     if (key === "status") {
-      if (value === "online")
+      const s = String(value).toLowerCase();
+
+      if (s === "online")
         return (
-          <span className="inline-flex rounded border border-emerald-600 bg-emerald-900/40 text-emerald-300 px-2 py-0.5 text-[11px] font-medium">
-            ONLINE
+          <span className="text-emerald-300 font-medium text-[11px] flex items-center gap-1">
+            ● ONLINE
           </span>
         );
 
-      if (value === "offline")
+      if (s === "offline")
         return (
-          <span className="inline-flex rounded border border-red-600 bg-red-900/40 text-red-300 px-2 py-0.5 text-[11px] font-medium">
-            OFFLINE
+          <span className="text-red-300 font-medium text-[11px] flex items-center gap-1">
+            ○ OFFLINE
           </span>
         );
 
-      if (value === "Abwesend" || value === "Idle")
+      if (s === "abwesend" || s === "idle")
         return (
-          <span className="inline-flex rounded border border-yellow-600 bg-yellow-900/40 text-yellow-300 px-2 py-0.5 text-[11px] font-medium">
-            {value.toUpperCase()}
+          <span className="text-yellow-300 font-medium text-[11px] flex items-center gap-1">
+            ◐ {value.toUpperCase()}
           </span>
         );
+    }
+
+    // -------------------------
+    // LEVEL BADGES (farbblind-freundlich)
+    // -------------------------
+    if (key === "Level") {
+      const level = String(value).toLowerCase();
+
+      if (level === "error") {
+        return (
+          <span className="text-red-300 font-semibold text-[12px] flex items-center gap-1">
+            ⛔ ERROR
+          </span>
+        );
+      }
+
+      if (level === "warning" || level === "warn") {
+        return (
+          <span className="text-yellow-300 font-semibold text-[12px] flex items-center gap-1">
+            ⚠️ WARNING
+          </span>
+        );
+      }
+
+      if (level === "information" || level === "info") {
+        return (
+          <span className="text-blue-300 font-semibold text-[12px] flex items-center gap-1">
+            ⓘ INFO
+          </span>
+        );
+      }
     }
 
     return value;
@@ -29,7 +66,7 @@ export default function UniversalTable({ columns, data }) {
   return (
     <div className="overflow-hidden rounded-md border border-red-900 bg-[#1a1a1a] shadow-lg">
       <table className="min-w-full border-collapse text-sm text-gray-200">
-        
+
         <thead className="bg-[#2a0000] text-white uppercase text-xs tracking-wide">
           <tr>
             {columns.map((col) => (
@@ -47,7 +84,7 @@ export default function UniversalTable({ columns, data }) {
               className="border-t border-red-900/40 hover:bg-red-900/10 transition-colors"
             >
               {columns.map((col) => (
-                <td key={col.key} className="px-3 py-2 text-gray-300">
+                <td key={col.key} className="px-3 py-2">
                   {renderAutoCell(col.key, row[col.key])}
                 </td>
               ))}
