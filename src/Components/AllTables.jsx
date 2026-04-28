@@ -30,7 +30,7 @@ export default function AllTables({ columns, data }) {
     }
 
     // -------------------------
-    // LEVEL BADGES (farbblind-freundlich)
+    // LEVEL BADGES
     // -------------------------
     if (key === "Level") {
       const level = String(value).toLowerCase();
