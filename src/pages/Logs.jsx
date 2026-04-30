@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import LogsTable from "../Components/LogsTable.jsx";
+import LogsTable from "../components/LogsTable.jsx";
 import Sidebar from "../components/Sidebar.jsx";
 import Header from "../components/Header.jsx";
 

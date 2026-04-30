@@ -4,7 +4,7 @@ import { loginAdmin } from "../../services/loginService.js";
 import Header from "../components/Header.jsx";
 import Footer from "../components/Footer.jsx";
 import Button_link_gray from "../components/Button_link_gray.jsx";
-import Button_red from "../components/Button_red";
+import Button_red from "../components/Button_red.jsx";
 import LoginErrorCard from "../components/LoginErrorCard.jsx";
 import { useAuth } from "../state/authContext.jsx";
 import Eye from "../assets/eye.jsx";
