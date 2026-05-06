@@ -3,7 +3,7 @@ import Login from "./pages/Login.jsx";
 import Users from "./pages/Users.jsx";
 import Hosts from "./pages/Hosts.jsx";
 import Logs from "./pages/Logs.jsx";
-
+import Settings from "./pages/Settings";
 
 function App() {
   return (
@@ -14,6 +14,7 @@ function App() {
         <Route path="/users" element={<Users />} />
         <Route path="/hosts" element={<Hosts />} />
         <Route path="/logs" element={<Logs />} />
+        <Route path="/settings" element={<Settings />} />
       </Routes>
     </>
   );
