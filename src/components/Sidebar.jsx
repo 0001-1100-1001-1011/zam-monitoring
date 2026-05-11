@@ -69,6 +69,14 @@ export default function Sidebar() {
             >
               Logs
             </NavLink>
+             <NavLink
+              to="/settings"
+              className={({ isActive }) =>
+                `${base} ${isActive ? active : inactive}`
+              }
+            >
+              Einstellungen
+            </NavLink>
 
             <NavLink
               to="/login"
