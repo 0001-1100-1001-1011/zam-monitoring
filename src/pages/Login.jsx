@@ -9,6 +9,7 @@ import LoginErrorCard from "../components/LoginErrorCard.jsx";
 import { useAuth } from "../state/authContext.jsx";
 import Eye from "../assets/eye.jsx";
 import Button_gray from "../components/Button_link_gray.jsx";
+import Button_back from "../Components/Button_back.jsx";
 
 export default function SignIn() {
   const { setIsAuthenticated } = useAuth();
@@ -123,7 +124,7 @@ export default function SignIn() {
               </div>
 
               <Button_red type="submit" text="Sign in" />
-              <Button_link_gray type="submit" text="Sign up" link="/register" />
+              <Button_back link="/register" type="button" text="Sign up" />
               <LoginErrorCard
                 errorMessage={errors.username}
                 x_pos="117%"
