@@ -5,6 +5,7 @@ import Button_red from "../components/Button_red.jsx";
 import RegisterForm from "../Components/RegisterForm.jsx";
 import Eye from "../assets/eye.jsx";
 import { Form } from "react-router";
+import Button_back from "../Components/Button_back.jsx";
 
 export default function SignupForm() {
   return (
@@ -29,7 +30,7 @@ export default function SignupForm() {
 
           <div className="flex flex-row gap-3 ">
             {/* BACK */}
-            <Button_link_gray type="back" text="Back" link="/login" />
+            <Button_back type="back" text="Back" link="/login" />
             {/* SIGN UP */}
             <Button_red text="Sign up" />
           </div>
