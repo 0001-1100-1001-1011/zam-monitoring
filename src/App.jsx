@@ -3,6 +3,7 @@ import Login from "./pages/Login.jsx";
 import Users from "./pages/Users.jsx";
 import Hosts from "./pages/Hosts.jsx";
 import Logs from "./pages/Logs.jsx";
+import Register from "./pages/Register.jsx";
 import Settings from "./pages/Settings";
 import Dashboard from "./pages/Dashboard.jsx";
 
@@ -12,6 +13,7 @@ function App() {
       <Routes>
         <Route path="*" element={<Navigate to="/login" replace />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/users" element={<Users />} />
         <Route path="/hosts" element={<Hosts />} />
