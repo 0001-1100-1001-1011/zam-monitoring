@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import UserTable from "../components/UserTable.jsx";
-import Header from "../components/Header.jsx";
 import Sidebar from "../components/Sidebar.jsx";
+import HeaderNavigation from "../Components/HeaderNavigation.jsx";
 
 export default function Users() {
   const [users, setUsers] = useState([]);
@@ -38,8 +38,8 @@ export default function Users() {
 
   return (
     <>
-     <Sidebar />
-      <Header />
+      <Sidebar />
+      <HeaderNavigation />
 
       <div className="min-h-screen bg-[var(--bg)] text-white flex flex-col items-center py-16">
         <div className="border-4 border-red-600 bg-zinc-800 rounded-3xl p-10 w-[800px] space-y-8">

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import LogsTable from "../components/LogsTable.jsx";
 import Sidebar from "../components/Sidebar.jsx";
-import Header from "../components/Header.jsx";
+import HeaderNavigation from "../components/HeaderNavigation.jsx";
 
 export default function Logs() {
   const [applicationLogs, setApplicationLogs] = useState([]);
@@ -71,10 +71,9 @@ export default function Logs() {
   return (
     <>
       <Sidebar />
-      <Header />
+      <HeaderNavigation />
 
       <div className="min-h-screen bg-[var(--bg)] text-white flex flex-col items-center py-16 space-y-16">
-
         {/* APPLICATION LOGS */}
         <div className="border-4 border-red-600 bg-zinc-800 rounded-3xl p-10 w-[900px] space-y-8">
           <h1 className="text-3xl font-bold text-center text-red-500">
@@ -98,7 +97,6 @@ export default function Logs() {
           </h1>
           <LogsTable logs={securityLogs} />
         </div>
-
       </div>
     </>
   );
