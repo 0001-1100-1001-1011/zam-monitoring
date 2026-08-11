@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import HostTable from "../components/HostTable.jsx";
-import Header from "../components/Header.jsx";
+import HeaderNavigation from "../components/HeaderNavigation.jsx";
 import Sidebar from "../components/Sidebar.jsx";
 
 export default function Hosts() {
@@ -39,14 +39,12 @@ export default function Hosts() {
 
   return (
     <>
+      <HeaderNavigation />
       <Sidebar />
-      <Header />
 
       <div className="min-h-screen bg-[var(--bg)] text-white flex flex-col items-center py-16">
         <div className="border-4 border-red-600 bg-zinc-800 rounded-3xl p-10 w-[800px] space-y-8">
-          <h1 className="text-3xl font-bold text-center text-red-500">
-            Hosts
-          </h1>
+          <h1 className="text-3xl font-bold text-center text-red-500">Hosts</h1>
           <p className="text-center text-gray-300">
             Aktive Hosts, Rollen und letzte Aktivitäten.
           </p>
