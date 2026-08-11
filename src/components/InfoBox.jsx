@@ -4,7 +4,7 @@ import { useHosts } from "../state/hostContext";
 export default function BoxInfo() {
   const { hosts } = useHosts();
 
-  const hostCount = hosts.length;
+  const hostCount = hosts?.length ?? 0;
 
   const logs = [
     {
