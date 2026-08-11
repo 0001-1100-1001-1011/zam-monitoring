@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import UserTable from "../components/UserTable.jsx";
 import Sidebar from "../components/Sidebar.jsx";
-import HeaderNavigation from "../Components/HeaderNavigation.jsx";
+import HeaderNavigation from "../components/HeaderNavigation.jsx";
 
 export default function Users() {
   const [users, setUsers] = useState([]);

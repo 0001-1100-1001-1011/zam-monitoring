@@ -2,10 +2,10 @@ import Header from "../components/Header.jsx";
 import Footer from "../components/Footer.jsx";
 import Button_link_gray from "../components/Button_link_gray.jsx";
 import Button_red from "../components/Button_red.jsx";
-import RegisterForm from "../Components/RegisterForm.jsx";
+import RegisterForm from "../components/RegisterForm.jsx";
 import Eye from "../assets/eye.jsx";
 import { Form } from "react-router";
-import Button_back from "../Components/Button_back.jsx";
+import Button_back from "../components/Button_back.jsx";
 
 export default function SignupForm() {
   return (

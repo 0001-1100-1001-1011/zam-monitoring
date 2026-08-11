@@ -1,5 +1,5 @@
 import Eye from "../assets/eye.jsx";
-import { Navigate, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 
 const HeaderNavigation = () => {
   const navigate = useNavigate();

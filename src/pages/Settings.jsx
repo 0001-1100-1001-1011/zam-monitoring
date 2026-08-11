@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Sidebar from "../components/Sidebar.jsx";
-import HeaderNavigation from "../Components/HeaderNavigation.jsx";
+import HeaderNavigation from "../components/HeaderNavigation.jsx";
 
 export default function Settings() {
   const [refreshRate, setRefreshRate] = useState(5);

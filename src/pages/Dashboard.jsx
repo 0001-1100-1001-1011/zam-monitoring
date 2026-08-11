@@ -2,11 +2,11 @@ import React from "react";
 import Header from "../components/Header.jsx";
 import Footer from "../components/Footer.jsx";
 import Button_link_gray from "../components/Button_link_gray.jsx";
-import Table_info from "../Components/Table_info.jsx";
-import Button_back from "../Components/Button_back.jsx";
-import HeaderNavigation from "../Components/HeaderNavigation.jsx";
-import HostGrid from "../Components/HostGrid.jsx";
-import BoxInfo from "../Components/InfoBox.jsx";
+import Table_info from "../components/Table_info.jsx";
+import Button_back from "../components/Button_back.jsx";
+import HeaderNavigation from "../components/HeaderNavigation.jsx";
+import HostGrid from "../components/HostGrid.jsx";
+import BoxInfo from "../components/InfoBox.jsx";
 
 export default function Dashboard() {
   return (
