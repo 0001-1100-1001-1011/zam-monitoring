@@ -1,12 +1,10 @@
-import { useEffect, useState, useCallback } from "react";
 import { useNavigate } from "react-router";
 import LogsTable from "../components/LogsTable.jsx";
 import Sidebar from "../components/Sidebar.jsx";
 import Header from "../components/Header.jsx";
+import { useLogs } from "../components/useLogs.jsx";
 
-const API_URL = "http://localhost:4000";
-
-const normalize = (logs) =>
+const normalizeSecurity = (logs) =>
   logs.map((l) => ({
     id: l.id,
     TimeCreated: l.timestamp ? l.timestamp.replace("T", " ").slice(0, 16) : "—",
@@ -20,38 +18,18 @@ const normalize = (logs) =>
 
 export default function LogsSecurity() {
   const navigate = useNavigate();
-  const [logs, setLogs] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [search, setSearch] = useState("");
-  const [levelFilter, setLevel] = useState("");
-
-  const fetchLogs = useCallback(async () => {
-    try {
-      let url = `${API_URL}/api/logs?source=Security&limit=50`;
-      if (levelFilter) url += `&level=${levelFilter}`;
-      if (search) url += `&search=${encodeURIComponent(search)}`;
-      const res = await fetch(url);
-      if (!res.ok) throw new Error("Server-Fehler");
-      const data = await res.json();
-      setLogs(normalize(data.logs ?? []));
-      setError(null);
-    } catch (err) {
-      setError(err.message);
-    } finally {
-      setLoading(false);
-    }
-  }, [levelFilter, search]);
-
-  useEffect(() => {
-    const loadLogs = async () => {
-      await fetchLogs();
-    };
-
-    loadLogs();
-    const interval = setInterval(fetchLogs, 10000);
-    return () => clearInterval(interval);
-  }, [fetchLogs]);
+  const {
+    logs,
+    loading,
+    error,
+    search,
+    setSearch,
+    levelFilter,
+    setLevel,
+    refetch,
+  } = useLogs("Security", {
+    normalize: normalizeSecurity,
+  });
 
   return (
     <>
@@ -87,7 +65,7 @@ export default function LogsSecurity() {
               <option value="ERROR">ERROR</option>
             </select>
             <button
-              onClick={fetchLogs}
+              onClick={refetch}
               className="text-sm px-4 py-2 border border-red-600 text-red-400 rounded-lg hover:bg-red-600 hover:text-white transition-colors"
             >
               ↻
