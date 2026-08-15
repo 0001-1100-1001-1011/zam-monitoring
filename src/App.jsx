@@ -3,9 +3,13 @@ import Login from "./pages/Login.jsx";
 import Users from "./pages/Users.jsx";
 import Hosts from "./pages/Hosts.jsx";
 import Logs from "./pages/Logs.jsx";
+import LogsApplication from "./pages/LogsApplication.jsx";
+import LogsSystem from "./pages/LogsSystem.jsx";
+import LogsSecurity from "./pages/LogsSecurity.jsx";
 import Register from "./pages/Register.jsx";
 import Settings from "./pages/Settings";
 import Dashboard from "./pages/Dashboard.jsx";
+import Software from "./pages/Software.jsx";
 
 function App() {
   return (
@@ -18,6 +22,10 @@ function App() {
         <Route path="/users" element={<Users />} />
         <Route path="/hosts" element={<Hosts />} />
         <Route path="/logs" element={<Logs />} />
+        <Route path="/logs/application" element={<LogsApplication />} />
+        <Route path="/logs/system" element={<LogsSystem />} />
+        <Route path="/logs/security" element={<LogsSecurity />} />
+        <Route path="/software" element={<Software />} />
         <Route path="/settings" element={<Settings />} />
       </Routes>
     </>
