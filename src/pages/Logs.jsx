@@ -1,17 +1,17 @@
-import { useEffect, useState, useCallback } from "react";
 import { useNavigate } from "react-router";
+import { useLogs } from "../components/useLogs.jsx";
 import LogsTable from "../components/LogsTable.jsx";
 import Sidebar from "../components/Sidebar.jsx";
 import Header from "../components/Header.jsx";
 
-const API_URL = "http://localhost:4000";
-
 const normalize = (logs) =>
   logs.slice(0, 5).map((l) => ({
     id: l.id,
-    TimeCreated: l.timestamp ? l.timestamp.replace("T", " ").slice(0, 16) : "—",
+    TimeCreated: l.time_created
+      ? l.time_created.replace("T", " ").slice(0, 16)
+      : "—",
     Hostname: l.hostname,
-    EventID: l.eventId,
+    EventID: l.event_id,
     Level: l.level,
     Source: l.source,
     Keyword: l.keyword ?? "",
@@ -21,49 +21,27 @@ const normalize = (logs) =>
 
 export default function Logs() {
   const navigate = useNavigate();
-  const [applicationLogs, setApplicationLogs] = useState([]);
-  const [systemLogs, setSystemLogs] = useState([]);
-  const [securityLogs, setSecurityLogs] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
 
-  const fetchLogs = useCallback(async () => {
-    try {
-      const [appRes, sysRes, secRes] = await Promise.all([
-        fetch(`${API_URL}/api/logs?source=Application&limit=5`),
-        fetch(`${API_URL}/api/logs?source=System&limit=5`),
-        fetch(`${API_URL}/api/logs?source=Security&limit=5`),
-      ]);
+  const {
+    logs: applicationLogs,
+    loading: appLoading,
+    error: appError,
+  } = useLogs("Application", { limit: 5, normalize });
 
-      if (!appRes.ok || !sysRes.ok || !secRes.ok) {
-        throw new Error("Server-Fehler beim Abrufen der Logs");
-      }
+  const {
+    logs: systemLogs,
+    loading: sysLoading,
+    error: sysError,
+  } = useLogs("System", { limit: 5, normalize });
 
-      const [appData, sysData, secData] = await Promise.all([
-        appRes.json(),
-        sysRes.json(),
-        secRes.json(),
-      ]);
+  const {
+    logs: securityLogs,
+    loading: secLoading,
+    error: secError,
+  } = useLogs("Security", { limit: 5, normalize });
 
-      setApplicationLogs(normalize(appData.logs ?? []));
-      setSystemLogs(normalize(sysData.logs ?? []));
-      setSecurityLogs(normalize(secData.logs ?? []));
-      setError(null);
-    } catch (err) {
-      setError(err.message);
-    } finally {
-      setLoading(false);
-    }
-  }, []);
-
-  useEffect(() => {
-    (async () => {
-      await fetchLogs();
-    })();
-
-    const interval = setInterval(fetchLogs, 10000);
-    return () => clearInterval(interval);
-  }, [fetchLogs]);
+  const loading = appLoading || sysLoading || secLoading;
+  const error = appError || sysError || secError;
 
   return (
     <>
@@ -115,7 +93,7 @@ export default function Logs() {
             <h1 className="text-3xl font-bold text-red-500">Security Logs</h1>
             <button
               onClick={() => navigate("/logs/security")}
-              className="text-sm px-4 py-2 border border-red-600 text-white rounded-xl hover:bg-red-600 hover:text-white transition-colors"
+              className="text-sm px-4 py-2 border border-red-600 text-white-400 rounded-xl hover:bg-red-600 hover:text-white transition-colors"
             >
               Alle anzeigen →
             </button>
