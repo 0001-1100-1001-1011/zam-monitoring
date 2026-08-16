@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router";
 import LogsTable from "../components/LogsTable.jsx";
 import Sidebar from "../components/Sidebar.jsx";
-import Header from "../components/Header.jsx";
+import Header from "../components/HeaderNavigation.jsx";
 import { useLogs } from "../components/useLogs.jsx";
 
 const normalizeSecurity = (logs) =>
@@ -34,7 +34,7 @@ export default function LogsSecurity() {
   return (
     <>
       <Sidebar />
-      <Header />
+      <HeaderNavigation />
       <div className="min-h-screen bg-[var(--bg)] text-white flex flex-col items-center py-16 px-4">
         <div className="w-[900px] space-y-6">
           <div className="flex items-center gap-4">
