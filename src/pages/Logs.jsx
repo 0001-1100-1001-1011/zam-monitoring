@@ -1,100 +1,103 @@
-import { useEffect, useState } from "react";
+import { useNavigate } from "react-router";
+import { useLogs } from "../components/useLogs.jsx";
 import LogsTable from "../components/LogsTable.jsx";
 import Sidebar from "../components/Sidebar.jsx";
 import HeaderNavigation from "../components/HeaderNavigation.jsx";
 
+const normalize = (logs) =>
+  logs.slice(0, 5).map((l) => ({
+    id: l.id,
+    TimeCreated: l.time_created
+      ? l.time_created.replace("T", " ").slice(0, 16)
+      : "—",
+    Hostname: l.hostname,
+    EventID: l.event_id,
+    Level: l.level,
+    Source: l.source,
+    Keyword: l.keyword ?? "",
+    Message: l.message?.length > 80 ? l.message.slice(0, 80) + "…" : l.message,
+    _fullMessage: l.message,
+  }));
+
 export default function Logs() {
-  const [applicationLogs, setApplicationLogs] = useState([]);
-  const [systemLogs, setSystemLogs] = useState([]);
-  const [securityLogs, setSecurityLogs] = useState([]);
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    // Dummy-Daten
-    setApplicationLogs([
-      {
-        id: 1,
-        TimeCreated: "2026-04-25 18:22",
-        EventID: 1000,
-        Level: "Error",
-        Source: "Application Error",
-        Message: "Programm XY ist abgestürzt",
-      },
-      {
-        id: 2,
-        TimeCreated: "2026-04-25 17:50",
-        EventID: 2001,
-        Level: "Warning",
-        Source: "AppModel-Runtime",
-        Message: "Langsame Antwortzeit",
-      },
-    ]);
+  const {
+    logs: applicationLogs,
+    loading: appLoading,
+    error: appError,
+  } = useLogs("Application", { limit: 5, normalize });
 
-    setSystemLogs([
-      {
-        id: 1,
-        TimeCreated: "2026-04-25 18:10",
-        EventID: 7001,
-        Level: "Error",
-        Source: "Service Control Manager",
-        Message: "Dienst konnte nicht gestartet werden",
-      },
-      {
-        id: 2,
-        TimeCreated: "2026-04-25 17:40",
-        EventID: 6008,
-        Level: "Information",
-        Source: "EventLog",
-        Message: "Unerwarteter Shutdown erkannt",
-      },
-    ]);
+  const {
+    logs: systemLogs,
+    loading: sysLoading,
+    error: sysError,
+  } = useLogs("System", { limit: 5, normalize });
 
-    setSecurityLogs([
-      {
-        id: 1,
-        TimeCreated: "2026-04-25 18:00",
-        EventID: 4625,
-        Level: "Warning",
-        Source: "Microsoft-Windows-Security-Auditing",
-        Message: "Fehlgeschlagener Login",
-      },
-      {
-        id: 2,
-        TimeCreated: "2026-04-25 17:30",
-        EventID: 4634,
-        Level: "Information",
-        Source: "Security",
-        Message: "Benutzer hat sich abgemeldet",
-      },
-    ]);
-  }, []);
+  const {
+    logs: securityLogs,
+    loading: secLoading,
+    error: secError,
+  } = useLogs("Security", { limit: 5, normalize });
+
+  const loading = appLoading || sysLoading || secLoading;
+  const error = appError || sysError || secError;
 
   return (
     <>
       <Sidebar />
-      <HeaderNavigation />
+      <Header />
 
       <div className="min-h-screen bg-[var(--bg)] text-white flex flex-col items-center py-16 space-y-16">
+        {error && (
+          <div className="bg-red-900 border border-red-500 text-red-200 rounded-xl px-6 py-3 text-sm">
+            ⚠ API nicht erreichbar: {error}
+          </div>
+        )}
+
+        {loading && <p className="text-zinc-400 text-sm">Lade Logs...</p>}
+
         {/* APPLICATION LOGS */}
         <div className="border-4 border-red-600 bg-zinc-800 rounded-3xl p-10 w-[900px] space-y-8">
-          <h1 className="text-3xl font-bold text-center text-red-500">
-            Application Logs
-          </h1>
+          <div className="flex items-center justify-between">
+            <h1 className="text-3xl font-bold text-red-500">
+              Application Logs
+            </h1>
+            <button
+              onClick={() => navigate("/logs/application")}
+              className="text-sm px-4 py-2 border border-red-600 text-white-400 rounded-xl hover:bg-red-600 hover:text-white transition-colors"
+            >
+              Alle anzeigen →
+            </button>
+          </div>
           <LogsTable logs={applicationLogs} />
         </div>
 
         {/* SYSTEM LOGS */}
         <div className="border-4 border-red-600 bg-zinc-800 rounded-3xl p-10 w-[900px] space-y-8">
-          <h1 className="text-3xl font-bold text-center text-red-500">
-            System Logs
-          </h1>
+          <div className="flex items-center justify-between">
+            <h1 className="text-3xl font-bold text-red-500">System Logs</h1>
+            <button
+              onClick={() => navigate("/logs/system")}
+              className="text-sm px-4 py-2 border border-red-600 text-white-400 rounded-xl hover:bg-red-600 hover:text-white transition-colors"
+            >
+              Alle anzeigen →
+            </button>
+          </div>
           <LogsTable logs={systemLogs} />
         </div>
 
         {/* SECURITY LOGS */}
         <div className="border-4 border-red-600 bg-zinc-800 rounded-3xl p-10 w-[900px] space-y-8">
-          <h1 className="text-3xl font-bold text-center text-red-500">
-            Security Logs
-          </h1>
+          <div className="flex items-center justify-between">
+            <h1 className="text-3xl font-bold text-red-500">Security Logs</h1>
+            <button
+              onClick={() => navigate("/logs/security")}
+              className="text-sm px-4 py-2 border border-red-600 text-white-400 rounded-xl hover:bg-red-600 hover:text-white transition-colors"
+            >
+              Alle anzeigen →
+            </button>
+          </div>
           <LogsTable logs={securityLogs} />
         </div>
       </div>

@@ -1,41 +1,41 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState, useCallback } from "react";
 import HostTable from "../components/HostTable.jsx";
 import HeaderNavigation from "../components/HeaderNavigation.jsx";
 import Sidebar from "../components/Sidebar.jsx";
 
+const API_URL = "http://localhost:4000";
+
 export default function Hosts() {
   const [hosts, setHosts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  const fetchHosts = useCallback(async () => {
+    try {
+      const res = await fetch(`${API_URL}/api/hosts`);
+
+      if (!res.ok) {
+        throw new Error("Server-Fehler beim Abrufen der Hosts");
+      }
+
+      const data = await res.json();
+      setHosts(data.hosts ?? []);
+      setError(null);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
 
   useEffect(() => {
-    const dummy = [
-      {
-        id: 1,
-        Hostname: "SRV-1",
-        role: "Server",
-        status: "online",
-        lastOnline: "2026-04-23",
-        cpu: "18%",
-      },
-      {
-        id: 2,
-        Hostname: "SRV-2",
-        role: "Server",
-        status: "offline",
-        lastOnline: "2026-04-22",
-        cpu: "0%",
-      },
-      {
-        id: 3,
-        Hostname: "Client-1",
-        role: "Client",
-        status: "Idle",
-        lastOnline: "2026-04-23",
-        cpu: "5%",
-      },
-    ];
+    (async () => {
+      await fetchHosts();
+    })();
 
-    setHosts(dummy);
-  }, []);
+    const interval = setInterval(fetchHosts, 10000);
+    return () => clearInterval(interval);
+  }, [fetchHosts]);
 
   return (
     <>
@@ -43,6 +43,14 @@ export default function Hosts() {
       <Sidebar />
 
       <div className="min-h-screen bg-[var(--bg)] text-white flex flex-col items-center py-16">
+        {error && (
+          <div className="bg-red-900 border border-red-500 text-red-200 rounded-xl px-6 py-3 text-sm mb-8">
+            ⚠ API nicht erreichbar: {error}
+          </div>
+        )}
+
+        {loading && <p className="text-zinc-400 text-sm mb-8">Lade Hosts...</p>}
+
         <div className="border-4 border-red-600 bg-zinc-800 rounded-3xl p-10 w-[800px] space-y-8">
           <h1 className="text-3xl font-bold text-center text-red-500">Hosts</h1>
           <p className="text-center text-gray-300">
