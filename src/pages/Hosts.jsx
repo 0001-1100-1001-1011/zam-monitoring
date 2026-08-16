@@ -3,7 +3,7 @@ import HostTable from "../components/HostTable.jsx";
 import Header from "../components/Header.jsx";
 import Sidebar from "../components/Sidebar.jsx";
 
-const API_URL = "http://localhost:4000";
+const API_URL = "http://localhost:3000";
 
 export default function Hosts() {
   const [hosts, setHosts] = useState([]);
@@ -19,7 +19,7 @@ export default function Hosts() {
       }
 
       const data = await res.json();
-      setHosts(data.hosts ?? []);
+      setHosts(data ?? []);
       setError(null);
     } catch (err) {
       setError(err.message);
