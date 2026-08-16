@@ -1,9 +1,8 @@
 import { useEffect, useState, useCallback } from "react";
+import { getHosts } from "../../services/hostsService.js";
 import HostTable from "../components/HostTable.jsx";
 import HeaderNavigation from "../components/HeaderNavigation.jsx";
 import Sidebar from "../components/Sidebar.jsx";
-
-const API_URL = "http://localhost:3000";
 
 export default function Hosts() {
   const [hosts, setHosts] = useState([]);
@@ -12,14 +11,9 @@ export default function Hosts() {
 
   const fetchHosts = useCallback(async () => {
     try {
-      const res = await fetch(`${API_URL}/api/hosts`);
+      const data = await getHosts();
 
-      if (!res.ok) {
-        throw new Error("Server-Fehler beim Abrufen der Hosts");
-      }
-
-      const data = await res.json();
-      setHosts(data ?? []);
+      setHosts(data.hosts ?? []);
       setError(null);
     } catch (err) {
       setError(err.message);
@@ -53,9 +47,7 @@ export default function Hosts() {
 
         <div className="border-4 border-red-600 bg-zinc-800 rounded-3xl p-10 w-[800px] space-y-8">
           <h1 className="text-3xl font-bold text-center text-red-500">Hosts</h1>
-          <p className="text-center text-gray-300">
-            Aktive Hosts, Rollen und letzte Aktivitäten.
-          </p>
+          <p className="text-center text-gray-300">Aktive Hosts, Rollen und letzte Aktivitäten.</p>
 
           <HostTable hosts={hosts} />
         </div>
