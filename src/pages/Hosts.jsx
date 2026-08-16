@@ -1,6 +1,6 @@
 import { useEffect, useState, useCallback } from "react";
 import HostTable from "../components/HostTable.jsx";
-import Header from "../components/Header.jsx";
+import HeaderNavigation from "../components/HeaderNavigation.jsx";
 import Sidebar from "../components/Sidebar.jsx";
 
 const API_URL = "http://localhost:4000";
@@ -39,8 +39,8 @@ export default function Hosts() {
 
   return (
     <>
+      <HeaderNavigation />
       <Sidebar />
-      <Header />
 
       <div className="min-h-screen bg-[var(--bg)] text-white flex flex-col items-center py-16">
         {error && (

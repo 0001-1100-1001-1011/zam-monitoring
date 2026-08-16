@@ -2,27 +2,26 @@ import React from "react";
 import Header from "../components/Header.jsx";
 import Footer from "../components/Footer.jsx";
 import Button_link_gray from "../components/Button_link_gray.jsx";
+import Table_info from "../components/Table_info.jsx";
+import Button_back from "../components/Button_back.jsx";
+import HeaderNavigation from "../components/HeaderNavigation.jsx";
+import HostGrid from "../components/HostGrid.jsx";
+import BoxInfo from "../components/InfoBox.jsx";
 
 export default function Dashboard() {
   return (
     <>
-      <Header />
-
-      <div
-        id="top"
-        className="min-h-screen relative flex items-center justify-center"
-      >
-        <Button_link_gray text="Willkommen bei ZAM!" />
+      <div className="h-screen flex flex-col ">
+        {/* HEADER */}
+        <HeaderNavigation />
+        {/* MAIN CONTAINER */}
+        <div className="flex-1 overflow-auto bg-zinc-800  border border-black m-4">
+          {/* QUICK INFO BOX */}
+          <BoxInfo />
+          {/* HOST GRID */}
+          <HostGrid />
+        </div>
       </div>
-
-      <Footer
-        children={
-          <Button_link_gray
-            text="Check out the source code!"
-            link="https://github.com/0001-1100-1001-1011/zam-monitoring"
-          />
-        }
-      />
     </>
   );
 }

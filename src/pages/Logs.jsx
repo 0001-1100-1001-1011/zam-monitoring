@@ -2,7 +2,7 @@ import { useNavigate } from "react-router";
 import { useLogs } from "../components/useLogs.jsx";
 import LogsTable from "../components/LogsTable.jsx";
 import Sidebar from "../components/Sidebar.jsx";
-import Header from "../components/Header.jsx";
+import HeaderNavigation from "../components/HeaderNavigation.jsx";
 
 const normalize = (logs) =>
   logs.slice(0, 5).map((l) => ({
