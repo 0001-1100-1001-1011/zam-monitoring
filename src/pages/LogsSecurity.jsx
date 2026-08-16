@@ -1,15 +1,17 @@
 import { useNavigate } from "react-router";
 import LogsTable from "../components/LogsTable.jsx";
 import Sidebar from "../components/Sidebar.jsx";
-import Header from "../components/Header.jsx";
+import HeaderNavigation from "../components/HeaderNavigation.jsx";
 import { useLogs } from "../components/useLogs.jsx";
 
 const normalizeSecurity = (logs) =>
   logs.map((l) => ({
     id: l.id,
-    TimeCreated: l.timestamp ? l.timestamp.replace("T", " ").slice(0, 16) : "—",
+    TimeCreated: l.time_created
+      ? l.time_created.replace("T", " ").slice(0, 16)
+      : "—",
     Hostname: l.hostname,
-    EventID: l.eventId,
+    EventID: l.event_id,
     Level: l.level,
     Keyword: l.keyword ?? "",
     Message: l.message?.length > 80 ? l.message.slice(0, 80) + "…" : l.message,
