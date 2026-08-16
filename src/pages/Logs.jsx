@@ -46,7 +46,7 @@ export default function Logs() {
   return (
     <>
       <Sidebar />
-      <Header />
+      <HeaderNavigation />
 
       <div className="min-h-screen bg-[var(--bg)] text-white flex flex-col items-center py-16 space-y-16">
         {error && (
