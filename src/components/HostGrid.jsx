@@ -1,8 +1,26 @@
+import { useEffect, useState } from "react";
+import { getHosts } from "../../services/hostsService";
 import { Laptop } from "lucide-react";
-import { useHosts } from "../state/hostContext";
 
 export default function HostGrid({ onSelect }) {
-  const { hosts, loading } = useHosts();
+  const [hosts, setHosts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [setError] = useState(null);
+
+  useEffect(() => {
+    async function loadHosts() {
+      try {
+        const data = await getHosts();
+        setHosts(data);
+      } catch (error) {
+        setError(error.message);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    loadHosts();
+  }, []);
 
   if (loading) {
     return <p>Loading Hosts...</p>;

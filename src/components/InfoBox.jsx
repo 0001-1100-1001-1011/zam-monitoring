@@ -1,8 +1,23 @@
+import { useEffect, useState } from "react";
+import { getHosts } from "../../services/hostsService";
 import { Laptop } from "lucide-react";
-import { useHosts } from "../state/hostContext";
 
 export default function BoxInfo() {
-  const { hosts } = useHosts();
+  const [hosts, setHosts] = useState([]);
+  const [setError] = useState(null);
+
+  useEffect(() => {
+    async function loadHosts() {
+      try {
+        const data = await getHosts();
+        setHosts(data);
+      } catch (error) {
+        setError(error.message);
+      }
+    }
+
+    loadHosts();
+  }, []);
 
   const hostCount = hosts?.length ?? 0;
 
