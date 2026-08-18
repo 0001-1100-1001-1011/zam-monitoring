@@ -6,7 +6,7 @@ const defaultNormalize = (logs) =>
   logs.map((l) => ({
     id: l.id,
     TimeCreated: l.time_created
-      ? l.time_created.replace("T", " ").slice(0, 16)
+      ? new Date(l.time_created).toLocaleString("de-DE")
       : "—",
     Hostname: l.hostname,
     EventID: l.event_id,

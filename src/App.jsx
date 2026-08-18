@@ -3,6 +3,7 @@ import Login from "./pages/Login.jsx";
 import Users from "./pages/Users.jsx";
 import Hosts from "./pages/Hosts.jsx";
 import Logs from "./pages/Logs.jsx";
+import Cves from "./pages/cves.jsx";
 import LogsApplication from "./pages/LogsApplication.jsx";
 import LogsSystem from "./pages/LogsSystem.jsx";
 import LogsSecurity from "./pages/LogsSecurity.jsx";
@@ -21,6 +22,7 @@ function App() {
         <Route path="/users" element={<Users />} />
         <Route path="/hosts" element={<Hosts />} />
         <Route path="/logs" element={<Logs />} />
+        <Route path="/cves" element={<Cves />} />
         <Route path="/logs/application" element={<LogsApplication />} />
         <Route path="/logs/system" element={<LogsSystem />} />
         <Route path="/logs/security" element={<LogsSecurity />} />
