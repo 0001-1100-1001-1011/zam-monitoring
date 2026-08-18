@@ -8,7 +8,9 @@ const normalize = (logs) =>
   logs.slice(0, 5).map((l) => ({
     id: l.id,
     TimeCreated: l.time_created
-      ? l.time_created.replace("T", " ").slice(0, 16)
+      ? new Date(l.time_created).toLocaleString("de-DE", {
+          timeZone: "Europe/Berlin",
+        })
       : "—",
     Hostname: l.hostname,
     EventID: l.event_id,
