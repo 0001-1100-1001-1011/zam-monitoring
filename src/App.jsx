@@ -26,7 +26,6 @@ function App() {
         <Route path="/logs/application" element={<LogsApplication />} />
         <Route path="/logs/system" element={<LogsSystem />} />
         <Route path="/logs/security" element={<LogsSecurity />} />
-
         <Route path="/settings" element={<Settings />} />
       </Routes>
     </>
