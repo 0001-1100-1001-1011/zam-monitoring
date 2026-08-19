@@ -46,6 +46,13 @@ const HeaderNavigation = () => {
         >
           {"CVE"}
         </button>
+        <button
+          type={"button"}
+          onClick={() => navigate("/softwares")}
+          className="border border-none bg-zinc-900 text-white font-bold rounded-sm p-2 hover:bg-red-600 active:bg-red-500 w-30"
+        >
+          {"Software"}
+        </button>
       </div>
     </header>
   );

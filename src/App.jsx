@@ -10,6 +10,7 @@ import LogsSecurity from "./pages/LogsSecurity.jsx";
 import Register from "./pages/Register.jsx";
 import Settings from "./pages/Settings";
 import Dashboard from "./pages/Dashboard.jsx";
+import Softwares from "./pages/Softwares.jsx";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
         <Route path="/hosts" element={<Hosts />} />
         <Route path="/logs" element={<Logs />} />
         <Route path="/cves" element={<Cves />} />
+        <Route path="/softwares" element={<Softwares />} />
         <Route path="/logs/application" element={<LogsApplication />} />
         <Route path="/logs/system" element={<LogsSystem />} />
         <Route path="/logs/security" element={<LogsSecurity />} />
