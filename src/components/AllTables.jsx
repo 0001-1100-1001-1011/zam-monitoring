@@ -88,6 +88,18 @@ export default function AllTables({ columns, data }) {
       );
     }
 
+    if (
+      [
+        "created_at",
+        "published_at",
+        "last_seen",
+        "time_created",
+        "received_at",
+      ].includes(key)
+    ) {
+      return value ? new Date(value).toLocaleString("de-DE") : "—";
+    }
+
     return value;
   };
 
