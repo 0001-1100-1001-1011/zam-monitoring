@@ -1,6 +1,5 @@
 import { useEffect, useState, useCallback } from "react";
-
-const API_URL = "http://localhost:3000";
+import { getSoftwares } from "../../services/softwaresService";
 
 export function useSoftware({ interval = 15000 } = {}) {
   const [clients, setClients] = useState([]);
@@ -11,11 +10,7 @@ export function useSoftware({ interval = 15000 } = {}) {
 
   const fetchSoftware = useCallback(async () => {
     try {
-      const res = await fetch(`${API_URL}/api/softwares`);
-      if (!res.ok)
-        throw new Error("Server-Fehler beim Abrufen der Software-Daten");
-
-      const data = await res.json();
+      const data = await getSoftwares;
       const list = data.clients ?? [];
       setClients(list);
 
