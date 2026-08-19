@@ -11,7 +11,7 @@ export function useSoftware({ interval = 15000 } = {}) {
 
   const fetchSoftware = useCallback(async () => {
     try {
-      const res = await fetch(`${API_URL}/api/software`);
+      const res = await fetch(`${API_URL}/api/softwares`);
       if (!res.ok)
         throw new Error("Server-Fehler beim Abrufen der Software-Daten");
 
