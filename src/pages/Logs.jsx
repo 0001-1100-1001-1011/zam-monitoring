@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router";
-import { useLogs } from "../components/useLogs.jsx";
+import { useLogs } from "../hooks/useLogs.jsx";
 import LogsTable from "../components/LogsTable.jsx";
 import Sidebar from "../components/Sidebar.jsx";
 import HeaderNavigation from "../components/HeaderNavigation.jsx";

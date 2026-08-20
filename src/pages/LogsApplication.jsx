@@ -2,7 +2,7 @@ import { useNavigate } from "react-router";
 import LogsTable from "../components/LogsTable.jsx";
 import Sidebar from "../components/Sidebar.jsx";
 import HeaderNavigation from "../components/HeaderNavigation.jsx";
-import { useLogs } from "../components/useLogs.jsx";
+import { useLogs } from "../hooks/useLogs.jsx";
 
 export default function LogsApplication() {
   const navigate = useNavigate();
