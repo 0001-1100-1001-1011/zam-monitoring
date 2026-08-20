@@ -1,10 +1,13 @@
+const INTERVAL = import.meta.env.VITE_INTERVAL;
 import { useEffect, useState, useCallback } from "react";
 import { getLogs } from "../../services/logsService.js";
 
 const defaultNormalize = (logs) =>
   logs.map((l) => ({
     id: l.id,
-    TimeCreated: l.time_created ? new Date(l.time_created).toLocaleString("de-DE") : "—",
+    TimeCreated: l.time_created
+      ? new Date(l.time_created).toLocaleString("de-DE")
+      : "—",
     Hostname: l.hostname,
     EventID: l.event_id,
     Level: l.level,
@@ -14,7 +17,7 @@ const defaultNormalize = (logs) =>
 
 export function useLogs(
   source,
-  { limit = 50, Interval = 10000, normalize = defaultNormalize } = {},
+  { limit = 50, normalize = defaultNormalize } = {},
 ) {
   const [logs, setLogs] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -42,9 +45,9 @@ export function useLogs(
       await fetchLogs();
     })();
 
-    const interval = setInterval(fetchLogs, Interval);
+    const interval = setInterval(fetchLogs, INTERVAL);
     return () => clearInterval(interval);
-  }, [fetchLogs, Interval]);
+  }, [fetchLogs]);
 
   return {
     logs,

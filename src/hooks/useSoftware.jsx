@@ -1,7 +1,8 @@
+const INTERVAL = import.meta.env.VITE_INTERVAL;
 import { useEffect, useState, useCallback } from "react";
 import { getSoftwares } from "../../services/softwaresService";
 
-export function useSoftware({ interval = 15000 } = {}) {
+export function useSoftware() {
   const [clients, setClients] = useState([]);
   const [selectedClientId, setSelectedClientId] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -31,9 +32,9 @@ export function useSoftware({ interval = 15000 } = {}) {
       await fetchSoftware();
     })();
 
-    const id = setInterval(fetchSoftware, interval);
+    const id = setInterval(fetchSoftware, INTERVAL);
     return () => clearInterval(id);
-  }, [fetchSoftware, interval]);
+  }, [fetchSoftware]);
 
   const selectedClient = clients.find((c) => c.clientId === selectedClientId);
 
