@@ -48,7 +48,7 @@ export default function Logs() {
       <Sidebar />
       <HeaderNavigation />
 
-      <div className="min-h-screen bg-[var(--bg)] text-white flex flex-col items-center py-16 space-y-16">
+      <div className="min-h-screen bg-(--bg) text-white flex flex-col items-center py-16 space-y-16">
         {error && (
           <div className="bg-red-900 border border-red-500 text-red-200 rounded-xl px-6 py-3 text-sm">
             ⚠ API nicht erreichbar: {error}
