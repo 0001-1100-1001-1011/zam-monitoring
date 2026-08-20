@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router";
 import { loginAdmin } from "../../services/loginService.js";
 import Header from "../components/Header.jsx";
@@ -8,7 +8,6 @@ import Button_red from "../components/Button_red.jsx";
 import LoginErrorCard from "../components/LoginErrorCard.jsx";
 import { useAuth } from "../state/authContext.jsx";
 import Eye from "../assets/eye.jsx";
-import Button_gray from "../components/Button_link_gray.jsx";
 import Button_back from "../components/Button_back.jsx";
 
 export default function SignIn() {
