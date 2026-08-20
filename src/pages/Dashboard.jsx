@@ -1,7 +1,7 @@
 import HeaderNavigation from "../components/HeaderNavigation.jsx";
 import HostGrid from "../components/HostGrid.jsx";
 import BoxInfo from "../components/InfoBox.jsx";
-import { useHosts } from "../components/useHosts.jsx";
+import { useHosts } from "../hooks/useHosts.jsx";
 
 export default function Dashboard() {
   const { hosts, loading, error } = useHosts();

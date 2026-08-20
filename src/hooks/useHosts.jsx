@@ -48,6 +48,5 @@ export function useHosts({ interval = 1000 } = {}) {
     hosts,
     loading,
     error,
-    refetch: fetchHosts,
   };
 }
