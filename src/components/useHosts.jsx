@@ -1,7 +1,7 @@
 import { useEffect, useState, useCallback } from "react";
 import { getHosts } from "../../services/hostsService.js";
 
-export function useHosts({ interval = 10000 } = {}) {
+export function useHosts({ interval = 1000 } = {}) {
   const [hosts, setHosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -21,7 +21,7 @@ export function useHosts({ interval = 10000 } = {}) {
     try {
       const data = await getHosts();
       const list = data ?? [];
-
+      console.log("REFETCH");
       const hostsStatus = list.map((host) => ({
         ...host,
         online: hostOnline(host.last_seen),
@@ -44,7 +44,6 @@ export function useHosts({ interval = 10000 } = {}) {
     const id = setInterval(fetchHosts, interval);
     return () => clearInterval(id);
   }, [fetchHosts, interval]);
-
   return {
     hosts,
     loading,

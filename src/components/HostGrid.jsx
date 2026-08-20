@@ -1,6 +1,6 @@
 import { Laptop } from "lucide-react";
 
-const HostGrid = ({ hosts }) => {
+export default function HostGrid({ hosts }) {
   return (
     <div className="grid grid-cols-8 gap-4 p-4 m-4">
       {hosts.map((host) => (
@@ -19,6 +19,4 @@ const HostGrid = ({ hosts }) => {
       ))}
     </div>
   );
-};
-
-export default HostGrid;
+}
