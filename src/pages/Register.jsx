@@ -4,7 +4,6 @@ import Button_link_gray from "../components/Button_link_gray.jsx";
 import Button_red from "../components/Button_red.jsx";
 import RegisterForm from "../components/RegisterForm.jsx";
 import Eye from "../assets/eye.jsx";
-import { Form } from "react-router";
 import Button_back from "../components/Button_back.jsx";
 
 export default function SignupForm() {

@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import UserTable from "../components/UserTable.jsx";
 import Sidebar from "../components/Sidebar.jsx";
 import HeaderNavigation from "../components/HeaderNavigation.jsx";
 import CveTable from "../components/CveTable.jsx";
