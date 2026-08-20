@@ -1,7 +1,8 @@
+const INTERVAL = import.meta.env.VITE_INTERVAL;
 import { useEffect, useState, useCallback } from "react";
 import { getHosts } from "../../services/hostsService.js";
 
-export function useHosts({ interval = 1000 } = {}) {
+export function useHosts() {
   const [hosts, setHosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -21,7 +22,6 @@ export function useHosts({ interval = 1000 } = {}) {
     try {
       const data = await getHosts();
       const list = data ?? [];
-      console.log("REFETCH");
       const hostsStatus = list.map((host) => ({
         ...host,
         online: hostOnline(host.last_seen),
@@ -40,10 +40,9 @@ export function useHosts({ interval = 1000 } = {}) {
       await fetchHosts();
     };
     loadHosts();
-
-    const id = setInterval(fetchHosts, interval);
+    const id = setInterval(fetchHosts, INTERVAL);
     return () => clearInterval(id);
-  }, [fetchHosts, interval]);
+  }, [fetchHosts]);
   return {
     hosts,
     loading,
