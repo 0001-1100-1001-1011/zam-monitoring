@@ -21,7 +21,7 @@ export default function LogsSystem() {
     <>
       <Sidebar />
       <HeaderNavigation />
-      <div className="min-h-screen bg-[var(--bg)] text-white flex flex-col items-center py-16 px-4">
+      <div className="min-h-screen bg-(--bg) text-white flex flex-col items-center py-16 px-4">
         <div className="w-[900px] space-y-6">
           <div className="flex items-center gap-4">
             <button

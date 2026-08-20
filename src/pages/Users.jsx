@@ -41,7 +41,7 @@ export default function Users() {
       <Sidebar />
       <HeaderNavigation />
 
-      <div className="min-h-screen bg-[var(--bg)] text-white flex flex-col items-center py-16">
+      <div className="min-h-screen var(--bg) text-white flex flex-col items-center py-16">
         <div className="border-4 border-red-600 bg-zinc-800 rounded-3xl p-10 w-[800px] space-y-8">
           <h1 className="text-3xl font-bold text-center text-red-500">
             Benutzer
