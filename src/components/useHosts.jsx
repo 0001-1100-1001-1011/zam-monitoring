@@ -1,7 +1,7 @@
 import { useEffect, useState, useCallback } from "react";
 import { getHosts } from "../../services/hostsService.js";
 
-export function useHosts({ interval = 1000 } = {}) {
+export function useHosts({ interval = 10000 } = {}) {
   const [hosts, setHosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
