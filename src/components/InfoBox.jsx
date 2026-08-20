@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { getHosts } from "../../services/hostsService";
 import { getLogs } from "../../services/logsService";
-import { Laptop } from "lucide-react";
 
 export default function BoxInfo() {
   const [hosts, setHosts] = useState([]);
