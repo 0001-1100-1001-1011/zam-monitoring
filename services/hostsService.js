@@ -6,6 +6,8 @@ export async function getHosts() {
       method: "GET",
       headers: {
         Accept: "application/json",
+        "Content-Type": "application/json",
+        Autherization: `Bearer ${localStorage.getItem("ZAMToken")}`,
       },
     });
 
