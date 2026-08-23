@@ -16,7 +16,8 @@ export async function loginAdmin(loginData) {
       throw new Error("Failed to Sign in");
     }
     const data = await res.json();
-    localStorage.setItem("ZAMToken", data.accessToken);
+    localStorage.setItem("zamAccess", data.accessToken);
+    localStorage.setItem("zamRefresh", data.refreshToken);
     return true;
   } catch (error) {
     console.error("Failed to fetch: ", error);
