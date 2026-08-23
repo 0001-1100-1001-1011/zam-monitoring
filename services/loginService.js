@@ -10,7 +10,6 @@ export async function loginAdmin(loginData) {
       body: JSON.stringify(loginData),
     });
     if (!res.ok) {
-      console.log(res.json());
       const error = await res.json();
       console.error(error);
       throw new Error("Failed to Sign in");
@@ -20,7 +19,7 @@ export async function loginAdmin(loginData) {
     localStorage.setItem("zamRefresh", data.refreshToken);
     return true;
   } catch (error) {
-    console.error("Failed to fetch: ", error);
+    console.error(error);
     throw new Error("Failed to fetch");
   }
 }

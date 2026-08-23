@@ -1,3 +1,5 @@
+import { refreshService } from "./refreshService.js";
+
 const VITE_API_URL = import.meta.env.VITE_API_URL;
 
 export async function getLogs(query) {
@@ -10,14 +12,26 @@ export async function getLogs(query) {
         Authorization: `Bearer ${localStorage.getItem("zamAccess")}`,
       },
     });
-    if (!res.ok) {
-      const error = res.json();
-      console.log(error);
-      throw new Error("Failed to GET Logs query");
+
+    switch (res.status) {
+      case res.ok: {
+        const data = res.json();
+        return data;
+      }
+
+      case 401: {
+        await refreshService();
+        return getLogs(query);
+      }
+
+      case !res.ok: {
+        const error = res.json();
+        console.error(error);
+        throw new Error("Failed to GET Logs query");
+      }
     }
-    const data = res.json();
-    return data;
-  } catch {
+  } catch (error) {
+    console.error(error);
     throw new Error("Failed to fetch");
   }
 }

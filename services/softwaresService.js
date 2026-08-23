@@ -1,3 +1,5 @@
+import { refreshService } from "./refreshService.js";
+
 const VITE_API_URL = import.meta.env.VITE_API_URL;
 
 export async function getSoftwares() {
@@ -11,16 +13,28 @@ export async function getSoftwares() {
       },
     });
 
-    if (!res.ok) {
-      const error = await res.json();
-      console.error(error);
-      throw new Error("Failed to GET Softwares");
+    switch (res.status) {
+      case res.ok: {
+        const data = await res.json();
+        return data;
+      }
+
+      case 401: {
+        await refreshService();
+        return getSoftwares();
+      }
+
+      case !res.ok: {
+        const error = await res.json();
+        console.error(error);
+        throw new Error("Failed to GET Softwares");
+      }
     }
 
     const data = await res.json();
     return data;
   } catch (error) {
-    console.error("Failed to GET Softwares:", error);
-    throw error;
+    console.error(error);
+    throw new Error("Failed to fetch: ", error);
   }
 }

@@ -14,8 +14,7 @@ export async function registerService(registerData) {
       console.error(error);
       throw new Error("Failed to register");
     }
-    const data = await res.json();
-    localStorage.setItem("t", data);
+    await res.json();
   } catch (err) {
     console.error(err);
     throw new Error("Failed to fetch");

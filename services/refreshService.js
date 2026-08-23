@@ -13,12 +13,13 @@ export async function refreshService() {
     if (!res.ok) {
       const error = await res.json();
       console.error(error);
-      throw ("Failed to get refresh token: ", error);
+      throw new Error("Failed to get refresh token: ", error);
     }
     const data = await res.json();
-    localStorage.setItem("refreshToken", data.refreshToken);
+    localStorage.setItem("zamAccess", data.accessToken);
+    localStorage.setItem("zamRefresh", data.refreshToken);
   } catch (error) {
-    console.error("Failed to fetch: ", error);
-    throw ("Failed to fetch: ", error);
+    console.error(error);
+    throw new Error("Failed to fetch: ", error);
   }
 }
