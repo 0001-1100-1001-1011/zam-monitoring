@@ -1,17 +1,19 @@
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, useContext } from "react";
+import { getSoftwares } from "../../services/softwaresService.js";
+import { AuthContext } from "../state/authContext.jsx";
 import Sidebar from "../components/Sidebar.jsx";
 import HeaderNavigation from "../components/HeaderNavigation.jsx";
 import SoftwaresTable from "../components/SoftwaresTable.jsx";
-import { getSoftwares } from "../../services/softwaresService.js";
 
 export default function Softwares() {
+  const { accessTokenContext, setAccessTokenContext } = useContext(AuthContext);
   const [softwares, setSoftwares] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   const fetchSoftwares = useCallback(async () => {
     try {
-      const data = await getSoftwares();
+      const data = await getSoftwares(accessTokenContext, setAccessTokenContext);
 
       setSoftwares(data ?? []);
       setError(null);
@@ -33,7 +35,6 @@ export default function Softwares() {
 
   return (
     <>
-      {/* HEADER */}
       <HeaderNavigation />
       <Sidebar />
 
@@ -44,17 +45,11 @@ export default function Softwares() {
           </div>
         )}
 
-        {loading && (
-          <p className="text-zinc-400 text-sm mb-8">Lade Softwares...</p>
-        )}
+        {loading && <p className="text-zinc-400 text-sm mb-8">Lade Softwares...</p>}
 
         <div className="border-4 border-red-600 bg-zinc-800 rounded-3xl p-10 space-y-8">
-          <h1 className="text-3xl font-bold text-center text-red-500">
-            Software
-          </h1>
-          <p className="text-center text-gray-300">
-            Installed applications from different hosts
-          </p>
+          <h1 className="text-3xl font-bold text-center text-red-500">Software</h1>
+          <p className="text-center text-gray-300">Installed applications from different hosts</p>
 
           <SoftwaresTable softwares={softwares} />
         </div>

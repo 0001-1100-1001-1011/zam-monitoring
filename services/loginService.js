@@ -1,6 +1,6 @@
 const VITE_API_URL = import.meta.env.VITE_API_URL;
 
-export async function loginAdmin(loginData) {
+export async function loginAdmin(loginData, setAccessTokenContext) {
   try {
     const res = await fetch(`${VITE_API_URL}/auth/login`, {
       method: "POST",
@@ -15,7 +15,7 @@ export async function loginAdmin(loginData) {
       throw new Error("Failed to Sign in");
     }
     const data = await res.json();
-    localStorage.setItem("zamAccess", data.accessToken);
+    setAccessTokenContext(data.accessToken);
     localStorage.setItem("zamRefresh", data.refreshToken);
     return true;
   } catch (error) {

@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { useNavigate } from "react-router";
 import { loginAdmin } from "../../services/loginService.js";
+import { AuthContext } from "../state/authContext.jsx";
 import Header from "../components/Header.jsx";
 import Footer from "../components/Footer.jsx";
 import Button_link_gray from "../components/Button_link_gray.jsx";
@@ -10,6 +11,7 @@ import Eye from "../assets/eye.jsx";
 import Button_back from "../components/Button_back.jsx";
 
 export default function SignIn() {
+  const { setAccessTokenContext } = useContext(AuthContext);
   const [admin, setAdmin] = useState({ username: "", password: "" });
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
@@ -50,7 +52,7 @@ export default function SignIn() {
     const validationErrors = validate();
     setErrors(validationErrors);
     if (Object.keys(validationErrors).length === 0) {
-      const loginSucess = await loginAdmin(admin);
+      const loginSucess = await loginAdmin(admin, setAccessTokenContext);
       if (loginSucess) {
         console.log("done");
         navigate("/dashboard");

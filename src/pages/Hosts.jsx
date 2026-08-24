@@ -1,17 +1,19 @@
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, useContext } from "react";
 import { getHosts } from "../../services/hostsService.js";
+import { AuthContext } from "../state/authContext.jsx";
 import HostTable from "../components/HostTable.jsx";
 import HeaderNavigation from "../components/HeaderNavigation.jsx";
 import Sidebar from "../components/Sidebar.jsx";
 
 export default function Hosts() {
+  const { accessTokenContext, setAccessTokenContext } = useContext(AuthContext);
   const [hosts, setHosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   const fetchHosts = useCallback(async () => {
     try {
-      const data = await getHosts();
+      const data = await getHosts(accessTokenContext, setAccessTokenContext);
 
       setHosts(data ?? []);
       setError(null);

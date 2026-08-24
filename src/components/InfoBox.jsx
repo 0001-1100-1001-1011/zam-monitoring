@@ -1,23 +1,25 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
+import { AuthContext } from "../state/authContext";
 import { getHosts } from "../../services/hostsService";
 import { getLogs } from "../../services/logsService";
 
 export default function BoxInfo() {
+  const { accessTokenContext, setAccessTokenContext } = useContext(AuthContext);
   const [hosts, setHosts] = useState([]);
   const [logs, setLogs] = useState([]);
-  const [setError] = useState(null);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     async function initLoad() {
       try {
-        const data = await getHosts();
+        const data = await getHosts(accessTokenContext, setAccessTokenContext);
         setHosts(data ?? "unknown");
       } catch (error) {
         setError(error.message);
       }
 
       try {
-        const data = await getLogs("");
+        const data = await getLogs("", accessTokenContext, setAccessTokenContext);
         setLogs(data.logs ?? "unknown");
       } catch (error) {
         setError(error.message);
