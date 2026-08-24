@@ -1,16 +1,16 @@
-import React, { useContext, createContext, useState } from "react";
+import { createContext, useState } from "react";
 
-const AuthContext = createContext();
+// eslint-disable-next-line react-refresh/only-export-components
+export const AuthContext = createContext({
+  accessTokenContext: null,
+  setAccessTokenContext: () => {},
+});
 
 export function AuthProvider({ children }) {
-  const [isAuthenticated, setIsAuthenticated] = useState(!!localStorage.getItem("ZAMToken"));
+  const [accessTokenContext, setAccessTokenContext] = useState(null);
   return (
-    <AuthContext.Provider value={{ isAuthenticated, setIsAuthenticated }}>
+    <AuthContext.Provider value={{ accessTokenContext, setAccessTokenContext }}>
       {children}
     </AuthContext.Provider>
   );
-}
-
-export function useAuth() {
-  return useContext(AuthContext);
 }
