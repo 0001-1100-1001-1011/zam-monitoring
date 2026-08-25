@@ -2,7 +2,7 @@ import { refreshService } from "./refreshService.js";
 
 const VITE_API_URL = import.meta.env.VITE_API_URL;
 
-export async function getHosts(accessTokenContext, setAccessTokenContext) {
+export async function getHosts(accessTokenContext, setAccessTokenContext, retry = true) {
   try {
     const res = await fetch(`${VITE_API_URL}/api/hosts`, {
       method: "GET",
@@ -17,9 +17,9 @@ export async function getHosts(accessTokenContext, setAccessTokenContext) {
       const data = await res.json();
       return data;
     }
-    if (res.status === 401) {
+    if (res.status === 401 && retry) {
       const refreshedToken = await refreshService(setAccessTokenContext);
-      return getHosts(refreshedToken, setAccessTokenContext);
+      return getHosts(refreshedToken, setAccessTokenContext, false);
     } else {
       const error = await res.json();
       console.error(error);
