@@ -4,11 +4,7 @@ export async function refreshService(setAccessTokenContext) {
   try {
     const res = await fetch(`${VITE_API_URL}/auth/refresh`, {
       method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("zamRefresh")}`,
-      },
+      credentials: "include",
     });
     if (!res.ok) {
       const error = await res.json();
@@ -17,8 +13,6 @@ export async function refreshService(setAccessTokenContext) {
     }
     const data = await res.json();
     setAccessTokenContext(data.accessToken);
-    localStorage.setItem("zamRefresh", data.refreshToken);
-    return data.accessToken;
   } catch (error) {
     console.error(error);
     throw new Error("Failed to fetch: ", error);

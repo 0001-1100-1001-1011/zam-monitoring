@@ -4,6 +4,7 @@ export async function loginAdmin(loginData, setAccessTokenContext) {
   try {
     const res = await fetch(`${VITE_API_URL}/auth/login`, {
       method: "POST",
+      credentials: "include",
       headers: {
         "Content-Type": "application/json",
       },
@@ -16,7 +17,6 @@ export async function loginAdmin(loginData, setAccessTokenContext) {
     }
     const data = await res.json();
     setAccessTokenContext(data.accessToken);
-    localStorage.setItem("zamRefresh", data.refreshToken);
     return true;
   } catch (error) {
     console.error(error);
