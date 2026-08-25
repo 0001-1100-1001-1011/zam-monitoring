@@ -36,7 +36,7 @@ export function useHosts() {
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [accessTokenContext, setAccessTokenContext]);
 
   useEffect(() => {
     const loadHosts = async () => {

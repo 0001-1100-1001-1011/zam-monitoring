@@ -28,7 +28,7 @@ export function useSoftware() {
     } finally {
       setLoading(false);
     }
-  }, [selectedClientId]);
+  }, [selectedClientId, accessTokenContext, setAccessTokenContext]);
 
   useEffect(() => {
     (async () => {

@@ -36,7 +36,7 @@ export function useLogs(source, { limit = 50, normalize = defaultNormalize } = {
     } finally {
       setLoading(false);
     }
-  }, [source, limit, levelFilter, search, normalize]);
+  }, [source, limit, levelFilter, search, normalize, accessTokenContext, setAccesTokenContext]);
 
   useEffect(() => {
     (async () => {
