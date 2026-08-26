@@ -1,5 +1,4 @@
 import { Navigate, Route, Routes } from "react-router";
-import { AuthProvider } from "./state/authContext.jsx";
 import Login from "./pages/Login.jsx";
 import Users from "./pages/Users.jsx";
 import Hosts from "./pages/Hosts.jsx";
@@ -16,23 +15,21 @@ import Softwares from "./pages/Softwares.jsx";
 function App() {
   return (
     <>
-      <AuthProvider>
-        <Routes>
-          <Route path="*" element={<Navigate to="/login" replace />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/users" element={<Users />} />
-          <Route path="/hosts" element={<Hosts />} />
-          <Route path="/logs" element={<Logs />} />
-          <Route path="/cves" element={<Cves />} />
-          <Route path="/softwares" element={<Softwares />} />
-          <Route path="/logs/application" element={<LogsApplication />} />
-          <Route path="/logs/system" element={<LogsSystem />} />
-          <Route path="/logs/security" element={<LogsSecurity />} />
-          <Route path="/settings" element={<Settings />} />
-        </Routes>
-      </AuthProvider>
+      <Routes>
+        <Route path="*" element={<Navigate to="/login" replace />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/users" element={<Users />} />
+        <Route path="/hosts" element={<Hosts />} />
+        <Route path="/logs" element={<Logs />} />
+        <Route path="/cves" element={<Cves />} />
+        <Route path="/softwares" element={<Softwares />} />
+        <Route path="/logs/application" element={<LogsApplication />} />
+        <Route path="/logs/system" element={<LogsSystem />} />
+        <Route path="/logs/security" element={<LogsSecurity />} />
+        <Route path="/settings" element={<Settings />} />
+      </Routes>
     </>
   );
 }
