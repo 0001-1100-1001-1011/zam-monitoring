@@ -1,37 +1,10 @@
-import { useEffect, useState, useCallback, useContext } from "react";
-import { getSoftwares } from "../../services/softwaresService.js";
-import { AuthContext } from "../state/authContext.jsx";
 import Sidebar from "../components/Sidebar.jsx";
 import HeaderNavigation from "../components/HeaderNavigation.jsx";
 import SoftwaresTable from "../components/SoftwaresTable.jsx";
+import { useSoftware } from "../hooks/useSoftware.jsx";
 
 export default function Softwares() {
-  const { accessTokenContext, setAccessTokenContext } = useContext(AuthContext);
-  const [softwares, setSoftwares] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-
-  const fetchSoftwares = useCallback(async () => {
-    try {
-      const data = await getSoftwares(accessTokenContext, setAccessTokenContext);
-
-      setSoftwares(data ?? []);
-      setError(null);
-    } catch (err) {
-      setError(err.message);
-    } finally {
-      setLoading(false);
-    }
-  }, []);
-
-  useEffect(() => {
-    (async () => {
-      await fetchSoftwares();
-    })();
-
-    const interval = setInterval(fetchSoftwares, 10000);
-    return () => clearInterval(interval);
-  }, [fetchSoftwares]);
+  const { software, error, loading } = useSoftware();
 
   return (
     <>
@@ -51,7 +24,7 @@ export default function Softwares() {
           <h1 className="text-3xl font-bold text-center text-red-500">Software</h1>
           <p className="text-center text-gray-300">Installed applications from different hosts</p>
 
-          <SoftwaresTable softwares={softwares} />
+          <SoftwaresTable softwares={software} />
         </div>
       </div>
     </>
