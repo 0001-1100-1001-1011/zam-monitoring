@@ -6,16 +6,8 @@ import { useLogs } from "../hooks/useLogs.jsx";
 
 export default function LogsSystem() {
   const navigate = useNavigate();
-  const {
-    logs,
-    loading,
-    error,
-    search,
-    setSearch,
-    levelFilter,
-    setLevel,
-    refetch,
-  } = useLogs("System");
+  const { logs, loading, error, search, setSearch, levelFilter, setLevel, refetch } =
+    useLogs("System");
 
   return (
     <>

@@ -7,9 +7,7 @@ import { useLogs } from "../hooks/useLogs.jsx";
 const normalizeSecurity = (logs) =>
   logs.map((l) => ({
     id: l.id,
-    TimeCreated: l.time_created
-      ? l.time_created.replace("T", " ").slice(0, 16)
-      : "—",
+    TimeCreated: l.time_created ? l.time_created.replace("T", " ").slice(0, 16) : "—",
     Hostname: l.hostname,
     EventID: l.event_id,
     Level: l.level,
@@ -20,18 +18,12 @@ const normalizeSecurity = (logs) =>
 
 export default function LogsSecurity() {
   const navigate = useNavigate();
-  const {
-    logs,
-    loading,
-    error,
-    search,
-    setSearch,
-    levelFilter,
-    setLevel,
-    refetch,
-  } = useLogs("Security", {
-    normalize: normalizeSecurity,
-  });
+  const { logs, loading, error, search, setSearch, levelFilter, setLevel, refetch } = useLogs(
+    "Security",
+    {
+      normalize: normalizeSecurity,
+    },
+  );
 
   return (
     <>
