@@ -2,9 +2,11 @@ import HeaderNavigation from "../components/HeaderNavigation.jsx";
 import HostGrid from "../components/HostGrid.jsx";
 import BoxInfo from "../components/InfoBox.jsx";
 import { useHosts } from "../hooks/useHosts.jsx";
+import { useLogs } from "../hooks/useLogs.jsx";
 
 export default function Dashboard() {
   const { hosts, loading, error } = useHosts();
+  const { logs } = useLogs("", { limit: 1000 });
   return (
     <>
       <div className="h-screen flex flex-col ">
@@ -13,7 +15,7 @@ export default function Dashboard() {
         {/* MAIN CONTAINER */}
         <div className="flex-1 overflow-auto bg-zinc-800  border border-black m-4">
           {/* QUICK INFO BOX */}
-          <BoxInfo />
+          <BoxInfo hosts={hosts} logs={logs} />
           {/* HOST GRID */}
           {loading && <p className="text-zinc-400 text-sm">Lade Hosts...</p>}
           {error && (
