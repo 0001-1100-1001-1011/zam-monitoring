@@ -15,6 +15,7 @@ export async function registerService(registerData) {
       throw new Error("Failed to register");
     }
     await res.json();
+    return true;
   } catch (err) {
     console.error(err);
     throw new Error("Failed to fetch");

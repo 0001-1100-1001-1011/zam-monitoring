@@ -27,6 +27,6 @@ export async function getSoftwares(accessTokenContext, setAccessTokenContext, re
     }
   } catch (error) {
     console.error(error);
-    throw new Error("Failed to fetch: ", error);
+    throw new Error("Failed to fetch");
   }
 }

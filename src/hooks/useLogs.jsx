@@ -16,7 +16,7 @@ const defaultNormalize = (logs) =>
   }));
 
 export function useLogs(source, { limit = 50, normalize = defaultNormalize } = {}) {
-  const { accessTokenContext, setAccesTokenContext } = useContext(AuthContext);
+  const { accessTokenContext, setAccessTokenContext } = useContext(AuthContext);
   const [logs, setLogs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -28,7 +28,7 @@ export function useLogs(source, { limit = 50, normalize = defaultNormalize } = {
       let query = `?source=${source}&limit=${limit}`;
       if (levelFilter) query += `&level=${levelFilter}`;
       if (search) query += `&search=${encodeURIComponent(search)}`;
-      const data = await getLogs(query, accessTokenContext, setAccesTokenContext);
+      const data = await getLogs(query, accessTokenContext, setAccessTokenContext);
       setLogs(normalize(data.logs ?? []));
       setError(null);
     } catch (err) {
@@ -36,7 +36,7 @@ export function useLogs(source, { limit = 50, normalize = defaultNormalize } = {
     } finally {
       setLoading(false);
     }
-  }, [source, limit, levelFilter, search, normalize, accessTokenContext, setAccesTokenContext]);
+  }, [source, limit, levelFilter, search, normalize, accessTokenContext, setAccessTokenContext]);
 
   useEffect(() => {
     (async () => {

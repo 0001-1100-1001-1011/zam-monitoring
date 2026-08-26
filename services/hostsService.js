@@ -27,6 +27,6 @@ export async function getHosts(accessTokenContext, setAccessTokenContext, retry 
     }
   } catch (error) {
     console.error(error);
-    throw new Error("Failed to fetch: ", error);
+    throw new Error("Failed to fetch");
   }
 }

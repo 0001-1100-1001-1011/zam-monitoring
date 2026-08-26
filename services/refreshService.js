@@ -9,12 +9,13 @@ export async function refreshService(setAccessTokenContext) {
     if (!res.ok) {
       const error = await res.json();
       console.error(error);
-      throw new Error("Failed to get refresh token: ", error);
+      throw new Error("Failed to get refresh token");
     }
     const data = await res.json();
     setAccessTokenContext(data.accessToken);
+    return data.accessToken;
   } catch (error) {
     console.error(error);
-    throw new Error("Failed to fetch: ", error);
+    throw new Error("Failed to fetch");
   }
 }
