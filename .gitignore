@@ -7,6 +7,14 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
+*.cert
+*.pem
+*.crt
+
+certs/
+cert/
+ssl/
+
 node_modules
 dist
 dist-ssr
