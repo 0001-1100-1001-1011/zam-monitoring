@@ -4,7 +4,7 @@ const VITE_API_URL = import.meta.env.VITE_API_URL;
 
 export async function getHosts(accessTokenContext, setAccessTokenContext, retry = true) {
   try {
-    const res = await fetch(`${VITE_API_URL}/api/hosts`, {
+    const res = await fetch(`/api/hosts`, {
       method: "GET",
       headers: {
         Accept: "application/json",

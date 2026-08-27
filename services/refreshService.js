@@ -5,7 +5,7 @@ let refreshPromise = null;
 export async function refreshService(setAccessTokenContext) {
   if (!refreshPromise) {
     refreshPromise = (async () => {
-      const res = await fetch(`${VITE_API_URL}/auth/refresh`, {
+      const res = await fetch(`/auth/refresh`, {
         method: "POST",
         credentials: "include",
       });
