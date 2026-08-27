@@ -1,35 +1,10 @@
-import { useEffect, useState, useCallback } from "react";
-import { getHosts } from "../../services/hostsService.js";
 import HostTable from "../components/HostTable.jsx";
 import HeaderNavigation from "../components/HeaderNavigation.jsx";
 import Sidebar from "../components/Sidebar.jsx";
+import { useHosts } from "../hooks/useHosts.jsx";
 
 export default function Hosts() {
-  const [hosts, setHosts] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-
-  const fetchHosts = useCallback(async () => {
-    try {
-      const data = await getHosts();
-
-      setHosts(data ?? []);
-      setError(null);
-    } catch (err) {
-      setError(err.message);
-    } finally {
-      setLoading(false);
-    }
-  }, []);
-
-  useEffect(() => {
-    (async () => {
-      await fetchHosts();
-    })();
-
-    const interval = setInterval(fetchHosts, 10000);
-    return () => clearInterval(interval);
-  }, [fetchHosts]);
+  const { hosts, loading, error } = useHosts();
 
   return (
     <>

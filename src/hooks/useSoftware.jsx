@@ -1,8 +1,12 @@
 const INTERVAL = import.meta.env.VITE_INTERVAL;
-import { useEffect, useState, useCallback } from "react";
+
+import { useEffect, useState, useCallback, useContext } from "react";
 import { getSoftwares } from "../../services/softwaresService";
+import { AuthContext } from "../state/authContext";
 
 export function useSoftware() {
+  const { accessTokenContext, setAccessTokenContext } = useContext(AuthContext);
+  const [software, setSoftware] = useState([]);
   const [clients, setClients] = useState([]);
   const [selectedClientId, setSelectedClientId] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -11,7 +15,8 @@ export function useSoftware() {
 
   const fetchSoftware = useCallback(async () => {
     try {
-      const data = await getSoftwares;
+      const data = await getSoftwares(accessTokenContext, setAccessTokenContext);
+      setSoftware(data ?? []);
       const list = data.clients ?? [];
       setClients(list);
 
@@ -25,7 +30,7 @@ export function useSoftware() {
     } finally {
       setLoading(false);
     }
-  }, [selectedClientId]);
+  }, [selectedClientId, accessTokenContext, setAccessTokenContext]);
 
   useEffect(() => {
     (async () => {
@@ -43,6 +48,7 @@ export function useSoftware() {
   );
 
   return {
+    software,
     clients,
     selectedClient,
     filteredSoftware,

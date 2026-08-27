@@ -1,13 +1,13 @@
 const INTERVAL = import.meta.env.VITE_INTERVAL;
-import { useEffect, useState, useCallback } from "react";
+
+import { useEffect, useState, useCallback, useContext } from "react";
 import { getLogs } from "../../services/logsService.js";
+import { AuthContext } from "../state/authContext.jsx";
 
 const defaultNormalize = (logs) =>
   logs.map((l) => ({
     id: l.id,
-    TimeCreated: l.time_created
-      ? new Date(l.time_created).toLocaleString("de-DE")
-      : "—",
+    TimeCreated: l.time_created ? new Date(l.time_created).toLocaleString("de-DE") : "—",
     Hostname: l.hostname,
     EventID: l.event_id,
     Level: l.level,
@@ -15,10 +15,8 @@ const defaultNormalize = (logs) =>
     _fullMessage: l.message,
   }));
 
-export function useLogs(
-  source,
-  { limit = 50, normalize = defaultNormalize } = {},
-) {
+export function useLogs(source, { limit = 50, normalize = defaultNormalize } = {}) {
+  const { accessTokenContext, setAccessTokenContext } = useContext(AuthContext);
   const [logs, setLogs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -30,7 +28,7 @@ export function useLogs(
       let query = `?source=${source}&limit=${limit}`;
       if (levelFilter) query += `&level=${levelFilter}`;
       if (search) query += `&search=${encodeURIComponent(search)}`;
-      const data = await getLogs(query);
+      const data = await getLogs(query, accessTokenContext, setAccessTokenContext);
       setLogs(normalize(data.logs ?? []));
       setError(null);
     } catch (err) {
@@ -38,7 +36,7 @@ export function useLogs(
     } finally {
       setLoading(false);
     }
-  }, [source, limit, levelFilter, search, normalize]);
+  }, [source, limit, levelFilter, search, normalize, accessTokenContext, setAccessTokenContext]);
 
   useEffect(() => {
     (async () => {

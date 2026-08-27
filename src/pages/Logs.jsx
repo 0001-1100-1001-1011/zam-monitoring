@@ -7,9 +7,7 @@ import HeaderNavigation from "../components/HeaderNavigation.jsx";
 const normalize = (logs) =>
   logs.slice(0, 5).map((l) => ({
     id: l.id,
-    TimeCreated: l.time_created
-      ? new Date(l.time_created).toLocaleString("de-DE")
-      : "—",
+    TimeCreated: l.time_created ? new Date(l.time_created).toLocaleString("de-DE") : "—",
     Hostname: l.hostname,
     EventID: l.event_id,
     Level: l.level,
@@ -60,9 +58,7 @@ export default function Logs() {
         {/* APPLICATION LOGS */}
         <div className="border-4 border-red-600 bg-zinc-800 rounded-3xl p-10 w-[900px] space-y-8">
           <div className="flex items-center justify-between">
-            <h1 className="text-3xl font-bold text-red-500">
-              Application Logs
-            </h1>
+            <h1 className="text-3xl font-bold text-red-500">Application Logs</h1>
             <button
               onClick={() => navigate("/logs/application")}
               className="text-sm px-4 py-2 border border-red-600 text-white-400 rounded-xl hover:bg-red-600 hover:text-white transition-colors"

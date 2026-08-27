@@ -1,8 +1,11 @@
 const INTERVAL = import.meta.env.VITE_INTERVAL;
-import { useEffect, useState, useCallback } from "react";
+
+import { useEffect, useState, useCallback, useContext } from "react";
 import { getHosts } from "../../services/hostsService.js";
+import { AuthContext } from "../state/authContext.jsx";
 
 export function useHosts() {
+  const { accessTokenContext, setAccessTokenContext } = useContext(AuthContext);
   const [hosts, setHosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -20,7 +23,7 @@ export function useHosts() {
 
   const fetchHosts = useCallback(async () => {
     try {
-      const data = await getHosts();
+      const data = await getHosts(accessTokenContext, setAccessTokenContext);
       const list = data ?? [];
       const hostsStatus = list.map((host) => ({
         ...host,
@@ -33,7 +36,7 @@ export function useHosts() {
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [accessTokenContext, setAccessTokenContext]);
 
   useEffect(() => {
     const loadHosts = async () => {

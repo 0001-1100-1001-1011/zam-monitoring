@@ -43,9 +43,7 @@ export default function Users() {
 
       <div className="min-h-screen bg-(--bg) text-white flex flex-col items-center py-16">
         <div className="border-4 border-red-600 bg-zinc-800 rounded-3xl p-10 w-[800px] space-y-8">
-          <h1 className="text-3xl font-bold text-center text-red-500">
-            Benutzer
-          </h1>
+          <h1 className="text-3xl font-bold text-center text-red-500">Benutzer</h1>
           <p className="text-center text-gray-300">
             Aktive Benutzer, Rollen und letzte Aktivitäten.
           </p>

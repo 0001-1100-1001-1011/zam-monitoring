@@ -1,35 +1,7 @@
-import { useEffect, useState } from "react";
-import { getHosts } from "../../services/hostsService";
-import { getLogs } from "../../services/logsService";
-
-export default function BoxInfo() {
-  const [hosts, setHosts] = useState([]);
-  const [logs, setLogs] = useState([]);
-  const [setError] = useState(null);
-
-  useEffect(() => {
-    async function initLoad() {
-      try {
-        const data = await getHosts();
-        setHosts(data ?? "unknown");
-      } catch (error) {
-        setError(error.message);
-      }
-
-      try {
-        const data = await getLogs("");
-        setLogs(data.logs ?? "unknown");
-      } catch (error) {
-        setError(error.message);
-      }
-    }
-
-    initLoad();
-  }, []);
-
+export default function BoxInfo({ hosts = [], logs = [] }) {
   const hostCount = hosts?.length ?? 0;
   const logsCount = logs?.length ?? 0;
-  const lastLog = logs?.[0]?.time_created?.slice(0, 10) ?? 0;
+  const lastLog = logs[0]?.TimeCreated.slice(0, 9) ?? "0";
 
   return (
     <div className="justify-items-center flex flex-row justify-center">
