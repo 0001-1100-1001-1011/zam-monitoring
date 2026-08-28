@@ -4,7 +4,7 @@ import CveTable from "../components/CveTable.jsx";
 import { useCve } from "../hooks/useCve.jsx";
 
 export default function Cves() {
-  const { cves, loading, error } = useCve();
+  const { cves, loading, error, search, setSearch } = useCve();
 
   return (
     <>
@@ -17,6 +17,15 @@ export default function Cves() {
           <p className="text-center text-gray-300">
             Current detections from services.nvd.nist.gov
           </p>
+
+          {/* SEARCH */}
+          <input
+            type="text"
+            placeholder="CVE suche..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            className="w-full bg-zinc-800 border border-zinc-600 text-white text-sm rounded-lg px-4 py-2 focus:outline-none focus:border-red-500"
+          />
 
           {error && (
             <div className="bg-red-900 border border-red-500 text-red-200 rounded-xl px-6 py-3 text-sm">
