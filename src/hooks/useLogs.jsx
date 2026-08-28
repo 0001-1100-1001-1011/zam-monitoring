@@ -24,20 +24,34 @@ export function useLogs(
   const [logs, setLogs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
   const [search, setSearch] = useState("");
+
   const [levelFilter, setLevel] = useState("");
 
   const fetchLogs = useCallback(async () => {
     try {
       let query = `?source=${source}&limit=${limit}`;
       if (levelFilter) query += `&level=${levelFilter}`;
-      if (search) query += `&search=${encodeURIComponent(search)}`;
+
       const data = await getLogs(
         query,
         accessTokenContext,
         setAccessTokenContext,
       );
-      setLogs(normalize(data.logs ?? []));
+
+      const normalized = normalize(data.logs ?? []);
+
+      const filtered = normalized.filter(
+        (log) =>
+          log.Hostname.toLowerCase().includes(search.toLowerCase()) ||
+          log.Level.toLowerCase().includes(search.toLowerCase()) ||
+          log.Message.toLowerCase().includes(search.toLowerCase()) ||
+          log.EventID.toString().includes(search) ||
+          log.TimeCreated.toLowerCase().includes(search.toLowerCase()),
+      );
+
+      setLogs(filtered);
       setError(null);
     } catch (err) {
       setError(err.message);
