@@ -1,4 +1,6 @@
-import Sidebar from "../components/Sidebar.jsx";
+{
+  /*import Sidebar from "../components/Sidebar.jsx";*/
+}
 import HeaderNavigation from "../components/HeaderNavigation.jsx";
 import CveTable from "../components/CveTable.jsx";
 import { useCve } from "../hooks/useCve.jsx";
@@ -8,7 +10,7 @@ export default function Cves() {
 
   return (
     <>
-      <Sidebar />
+      {/*<Sidebar />*/}
       <HeaderNavigation />
 
       <div className="min-h-screen bg-(--bg) text-white flex flex-col items-center py-16">
