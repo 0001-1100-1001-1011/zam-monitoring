@@ -1,17 +1,27 @@
 import { useNavigate } from "react-router";
 import LogsTable from "../components/LogsTable.jsx";
-import Sidebar from "../components/Sidebar.jsx";
+{
+  /*import Sidebar from "../components/Sidebar.jsx";*/
+}
 import HeaderNavigation from "../components/HeaderNavigation.jsx";
 import { useLogs } from "../hooks/useLogs.jsx";
 
 export default function LogsApplication() {
   const navigate = useNavigate();
-  const { logs, loading, error, search, setSearch, levelFilter, setLevel, refetch } =
-    useLogs("Application");
+  const {
+    logs,
+    loading,
+    error,
+    search,
+    setSearch,
+    levelFilter,
+    setLevel,
+    refetch,
+  } = useLogs("Application");
 
   return (
     <>
-      <Sidebar />
+      {/*<Sidebar />*/}
       <HeaderNavigation />
       <div className="min-h-screen bg-(--bg) text-white flex flex-col items-center py-16 px-4">
         <div className="w-[900px] space-y-6">
@@ -22,12 +32,14 @@ export default function LogsApplication() {
             >
               ←
             </button>
-            <h1 className="text-3xl font-bold text-white-500">Application Logs</h1>
+            <h1 className="text-3xl font-bold text-white-500">
+              Application Logs
+            </h1>
           </div>
           <div className="flex gap-3">
             <input
               type="text"
-              placeholder="Nachricht durchsuchen..."
+              placeholder="Logs suchen..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               className="flex-1 bg-zinc-800 border border-zinc-600 text-white text-sm rounded-lg px-4 py-2 focus:outline-none focus:border-red-500"

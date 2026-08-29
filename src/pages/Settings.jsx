@@ -1,5 +1,7 @@
 import { useState } from "react";
-import Sidebar from "../components/Sidebar.jsx";
+{
+  /*import Sidebar from "../components/Sidebar.jsx";*/
+}
 import HeaderNavigation from "../components/HeaderNavigation.jsx";
 
 export default function Settings() {
@@ -11,7 +13,7 @@ export default function Settings() {
 
   return (
     <>
-      <Sidebar />
+      {/*<Sidebar />*/}
       <HeaderNavigation />
 
       <div className="min-h-screen bg-[#0f0f0f] text-white p-15 flex flex-col items-center">

@@ -6,8 +6,9 @@ import { AuthContext } from "../state/authContext.jsx";
 
 const defaultNormalize = (logs) =>
   logs.map((l) => ({
-    id: l.id,
-    TimeCreated: l.time_created ? new Date(l.time_created).toLocaleString("de-DE") : "—",
+    TimeCreated: l.time_created
+      ? new Date(l.time_created).toLocaleString("de-DE")
+      : "—",
     Hostname: l.hostname,
     EventID: l.event_id,
     Level: l.level,
@@ -15,28 +16,57 @@ const defaultNormalize = (logs) =>
     _fullMessage: l.message,
   }));
 
-export function useLogs(source, { limit = 50, normalize = defaultNormalize } = {}) {
+export function useLogs(
+  source,
+  { limit = 50, normalize = defaultNormalize } = {},
+) {
   const { accessTokenContext, setAccessTokenContext } = useContext(AuthContext);
   const [logs, setLogs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
   const [search, setSearch] = useState("");
+
   const [levelFilter, setLevel] = useState("");
 
   const fetchLogs = useCallback(async () => {
     try {
       let query = `?source=${source}&limit=${limit}`;
       if (levelFilter) query += `&level=${levelFilter}`;
-      if (search) query += `&search=${encodeURIComponent(search)}`;
-      const data = await getLogs(query, accessTokenContext, setAccessTokenContext);
-      setLogs(normalize(data.logs ?? []));
+
+      const data = await getLogs(
+        query,
+        accessTokenContext,
+        setAccessTokenContext,
+      );
+
+      const normalized = normalize(data.logs ?? []);
+
+      const filtered = normalized.filter(
+        (log) =>
+          log.Hostname.toLowerCase().includes(search.toLowerCase()) ||
+          log.Level.toLowerCase().includes(search.toLowerCase()) ||
+          log.Message.toLowerCase().includes(search.toLowerCase()) ||
+          log.EventID.toString().includes(search) ||
+          log.TimeCreated.toLowerCase().includes(search.toLowerCase()),
+      );
+
+      setLogs(filtered);
       setError(null);
     } catch (err) {
       setError(err.message);
     } finally {
       setLoading(false);
     }
-  }, [source, limit, levelFilter, search, normalize, accessTokenContext, setAccessTokenContext]);
+  }, [
+    source,
+    limit,
+    levelFilter,
+    search,
+    normalize,
+    accessTokenContext,
+    setAccessTokenContext,
+  ]);
 
   useEffect(() => {
     (async () => {

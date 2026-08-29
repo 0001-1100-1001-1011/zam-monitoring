@@ -18,13 +18,15 @@ const HeaderNavigation = () => {
         >
           {"Dashboard"}
         </button>
+        {/*
         <button
-          type={"button"}
-          onClick={() => navigate("/users")}
-          className="border border-none bg-zinc-900 text-white font-bold rounded-sm p-2 hover:bg-red-600 active:bg-red-500 w-30"
+        type="button"
+        onClick={() => navigate("/users")}
+        className="border border-none bg-zinc-900 text-white font-bold rounded-sm p-2 hover:bg-red-600 active:bg-red-500 w-30"
         >
-          {"Users"}
+        {"Users"}
         </button>
+        */}
         <button
           type={"button"}
           onClick={() => navigate("/hosts")}
