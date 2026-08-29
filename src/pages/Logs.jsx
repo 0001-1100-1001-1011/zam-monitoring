@@ -1,7 +1,9 @@
 import { useNavigate } from "react-router";
 import { useLogs } from "../hooks/useLogs.jsx";
 import LogsTable from "../components/LogsTable.jsx";
-import Sidebar from "../components/Sidebar.jsx";
+{
+  /*import Sidebar from "../components/Sidebar.jsx";*/
+}
 import HeaderNavigation from "../components/HeaderNavigation.jsx";
 
 const normalize = (logs) =>
@@ -44,7 +46,7 @@ export default function Logs() {
 
   return (
     <>
-      <Sidebar />
+      {/*<Sidebar />*/}
       <HeaderNavigation />
 
       <div className="min-h-screen bg-(--bg) text-white flex flex-col items-center py-16 space-y-16">
