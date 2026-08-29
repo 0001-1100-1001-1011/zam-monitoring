@@ -1,6 +1,8 @@
 import { useNavigate } from "react-router";
 import LogsTable from "../components/LogsTable.jsx";
-import Sidebar from "../components/Sidebar.jsx";
+{
+  /*import Sidebar from "../components/Sidebar.jsx";*/
+}
 import HeaderNavigation from "../components/HeaderNavigation.jsx";
 import { useLogs } from "../hooks/useLogs.jsx";
 
@@ -35,7 +37,7 @@ export default function LogsSecurity() {
 
   return (
     <>
-      <Sidebar />
+      {/*<Sidebar />*/}
       <HeaderNavigation />
       <div className="min-h-screen bg-(--bg) text-white flex flex-col items-center py-16 px-4">
         <div className="w-[900px] space-y-6">
