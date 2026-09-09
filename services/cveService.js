@@ -1,10 +1,8 @@
 import { refreshService } from "./refreshService.js";
 
-const VITE_API_URL = import.meta.env.VITE_API_URL;
-
 export async function getCves(accessTokenContext, setAccessTokenContext, retry = true) {
   try {
-    const res = await fetch(`${VITE_API_URL}/api/cves`, {
+    const res = await fetch(`/api/cves`, {
       method: "GET",
       headers: {
         Accept: "application/json",

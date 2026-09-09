@@ -1,10 +1,8 @@
 import { refreshService } from "./refreshService.js";
 
-const VITE_API_URL = import.meta.env.VITE_API_URL;
-
 export async function getLogs(query, accessTokenContext, setAccessTokenContext, retry = true) {
   try {
-    const res = await fetch(`${VITE_API_URL}/api/logs/${query}`, {
+    const res = await fetch(`/api/logs/${query}`, {
       method: "GET",
       headers: {
         Accept: "application/json",
